@@ -1,36 +1,118 @@
 import example.*
 
-describe "group of tests for pepita" {
-  const leonardo = new Paciente(edad=40, dolor=10, fortalezaMuscular=20)
-  const milena = new Paciente(edad=3, dolor=30, fortalezaMuscular=50)
+describe "group of tests for kinesiologia" {
+
+  const leonardo = new Paciente(edad=40,dolor=10,fortalezaMuscular=20)
+  const milena = new Paciente(edad=3,dolor=30,fortalezaMuscular=50)
   const magneto1 = new Magneto()
-  const bici1 = new Bicicleta()
-  const minitramp1 = new Minitramp()
-  test "a ver a ver que paso" {
+  const bici1 = new Bici()
+  const mini = new Minitramp()
+  const bici2 = new Bici(color="rojo")
+  const magneto2 = new Magneto(color="verde")
+  const nicolas = new Resistente(edad=40,dolor=10,fortalezaMuscular=20)
+  const julian = new Caprichoso(edad=30,dolor=54,fortalezaMuscular=50)
+  const victoria = new Caprichoso(edad=20,dolor=54,fortalezaMuscular=50)
+  const zoe = new Recuperacion(edad=50,dolor=14,fortalezaMuscular=40)
+  method initialize() {
+    leonardo.agregarAparato(bici1)
+    leonardo.agregarAparato(mini)
+    leonardo.agregarAparato(bici1)
+    leonardo.agregarAparato(magneto1)
+    milena.agregarAparato(magneto1)
+    milena.agregarAparato(bici1)
+    nicolas.agregarAparato(bici1)
+    nicolas.agregarAparato(mini)
+    nicolas.agregarAparato(bici1)
+    nicolas.agregarAparato(magneto1)
+    victoria.agregarAparato(bici1)
+    victoria.agregarAparato(mini)
+    victoria.agregarAparato(bici1)
+    victoria.agregarAparato(magneto1)
+    julian.agregarAparato(bici2)
+    julian.agregarAparato(magneto2)
+    julian.agregarAparato(bici1)
+    zoe.agregarAparato(bici1)
+    zoe.agregarAparato(mini)
+    zoe.agregarAparato(bici1)
+    zoe.agregarAparato(magneto1)
+
+    centro.agregarAparatoAlCentro(bici1)
+    centro.agregarAparatoAlCentro(bici2)
+    centro.agregarAparatoAlCentro(mini)
+    centro.agregarAparatoAlCentro(magneto1)
+    centro.agregarAparatoAlCentro(magneto2)
+  }
+  test "leonardo puede usar el magneto1" {
     assert.that(leonardo.puedeUsar(magneto1))
+  }
+  test "leonardo puede usar el bici1" {
     assert.that(leonardo.puedeUsar(bici1))
-    assert.that(leonardo.puedeUsar(minitramp1))
+  }
+    test "leonardo puede usar el mini" {
+    assert.that(leonardo.puedeUsar(mini))
   }
 
-  test "test2"{
-    leonardo.usar(magneto1)
-    assert.equals(9, leonardo.dolor())
-  }
-
-  test "test3"{
+  test "milena puede usar el magneto1" {
     assert.that(milena.puedeUsar(magneto1))
+  }
+  test "milena no puede usar el bici1" {
     assert.notThat(milena.puedeUsar(bici1))
-    assert.notThat(milena.puedeUsar(minitramp1))
+  }
+    test "milena no puede usar el mini" {
+    assert.notThat(milena.puedeUsar(mini))
   }
 
-  test "test4" {
+  test "Después de usar el magneto una vez, el nivel de dolor de Leonardo baja a 9" {
+    leonardo.usar(magneto1)
+    assert.equals(9,leonardo.dolor())
+  }
+
+  test "Después de usar el magneto una vez, el nivel de dolor de Milena baja a 27" {
     milena.usar(magneto1)
-    assert.equals(27, milena.dolor())
+    assert.equals(27,milena.dolor())
   }
 
-  test "test5"{
+  test "Después de usar la bicicleta una vez, dolor de Leonardo 6, fortaleza 23" {
     leonardo.usar(bici1)
     assert.equals(6, leonardo.dolor())
     assert.equals(23, leonardo.fortalezaMuscular())
+  }
+
+  test "Después de usar el minitramp una vez, la fortaleza de Leonardo sube a 24" {
+    leonardo.usar(mini)
+    assert.equals(24,leonardo.fortalezaMuscular())
+  }
+  
+  test "leonardo hace la rutina, su dolor baja a 1.8 y su fortaleza sube a 30" {
+    leonardo.concurrirAlCentro()
+    assert.equals(30, leonardo.fortalezaMuscular())
+    assert.equals(1.8, leonardo.dolor())
+  }
+
+  test "milena no puede hacer la rutina"{
+    assert.notThat(milena.puedeHacerRutina())
+  }
+
+  test "nicolas puede hacer su rutina, dolor 1.8, fortaleza 34"{
+    nicolas.concurrirAlCentro()
+    assert.equals(1.8, nicolas.dolor())
+    assert.equals(34, nicolas.fortalezaMuscular())
+  }
+
+  test "victoria no puede realizar su rutina" {
+    assert.notThat(victoria.puedeHacerRutina())
+  }
+
+  test "julian puede hacer su rutina, dolor 29.3, fortaleza 62" {
+    julian.concurrirAlCentro()
+    assert.equals(29.3, julian.dolor())
+    assert.equals(62, julian.fortalezaMuscular())
+  }
+
+  test "zoe puede hacer su rutina, valor recu 2, dolor 3.4, fortaleza 51" {
+    valorRapidaRec.valor(2)
+    zoe.concurrirAlCentro()
+    assert.equals(3.4, zoe.dolor())
+    assert.equals(51, zoe.fortalezaMuscular())
   }
 }
